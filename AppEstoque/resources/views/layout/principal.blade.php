@@ -22,6 +22,9 @@
                <li>
                   <a href="/produtos">Listagem</a>
                </li>
+               <li>
+                  <a href="/produtos/novo">Cadastrar produto</a>
+               </li>
             </ul>
          </div>
       </nav>

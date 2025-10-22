@@ -22,5 +22,9 @@
 
          return view('produto/detalhesProduto')->with('p', $produto);
       }
+
+      public function cadastrar () {
+         return view('produto/formulario');
+      }
    }
 ?>
