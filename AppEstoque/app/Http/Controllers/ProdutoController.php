@@ -8,7 +8,7 @@
       public function lista () {
          $produtos = DB::select('SELECT * FROM produtos');
          
-         return view('listagem')->with('produtos', $produtos);
+         return view('produto/listagem')->with('produtos', $produtos);
       }
 
       public function mostra () {
@@ -20,7 +20,7 @@
             return "Esse produto não existe";
          }
 
-         return view('detalhesProduto')->with('p', $produto);
+         return view('produto/detalhesProduto')->with('p', $produto);
       }
    }
 ?>
