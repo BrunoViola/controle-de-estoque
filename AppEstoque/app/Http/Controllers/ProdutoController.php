@@ -2,6 +2,7 @@
    namespace App\Http\Controllers;
 
    use Illuminate\Support\Facades\DB;
+   use Illuminate\Support\Facades\Log;
    use Request;
 
    class ProdutoController extends Controller {
@@ -23,8 +24,32 @@
          return view('produto/detalhesProduto')->with('p', $produto);
       }
 
-      public function cadastrar () {
+      public function novo () {
          return view('produto/formulario');
+      }
+
+      public function cadastrar () {
+         Log::info("I accessed the function 'cadastrar' at ProdutoController");
+
+         $nome = Request::input('nome');
+         $descricao = Request::input('descricao');
+         $valor = Request::input('valor');
+         $quantidade = Request::input('quantidade');
+
+         // persistindo no banco de dados
+         try {
+            DB::insert('INSERT INTO produtos (nome, quantidade, valor, descricao)
+            VALUES (?,?,?,?)', [$nome, $quantidade, $valor, $descricao]);
+
+            return view('produto/confirmacao-cadastro')
+               ->with('nome', $nome);
+         } catch (\Exception $e) {
+            Log::error("Erro ao cadastrar produto: " . $e->getMessage());
+
+            return redirect('/produtos/novo')
+            ->withInput()
+            ->with('erro', 'Erro ao cadastrar produto');
+         }
       }
    }
 ?>
