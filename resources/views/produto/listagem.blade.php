@@ -23,4 +23,12 @@
          </div>
       @endforelse
    </table>
+
+   <br>
+
+   @if(!empty(old('nome')))
+      <div>
+         <span class="alert alert-success"><strong>Sucesso!</strong> O produto '{{ old('nome') }}' foi adicionado!</span>
+      </div>
+   @endif
 @stop

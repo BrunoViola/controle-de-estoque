@@ -41,8 +41,7 @@
             DB::insert('INSERT INTO produtos (nome, quantidade, valor, descricao)
             VALUES (?,?,?,?)', [$nome, $quantidade, $valor, $descricao]);
 
-            return view('produto/confirmacao-cadastro')
-               ->with('nome', $nome);
+            return redirect('/produtos')->withInput(Request::only('nome')); //mantenho apenas o parâmetro nome e não passo os outros
          } catch (\Exception $e) {
             Log::error("Erro ao cadastrar produto: " . $e->getMessage());
 
@@ -50,6 +49,12 @@
             ->withInput()
             ->with('erro', 'Erro ao cadastrar produto');
          }
+      }
+
+      public function listarEmJSON () {
+         $produtos = DB::table('produtos')->get();
+
+         return $produtos;
       }
    }
 ?>
