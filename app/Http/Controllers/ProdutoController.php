@@ -3,9 +3,11 @@
 
    use Illuminate\Support\Facades\DB;
    use Illuminate\Support\Facades\Log;
+   use Illuminate\Support\Facades\Validator;
    use Request;
 
    use App\Models\Produto;
+   use App\Http\Requests\ProdutosRequest;
 
    class ProdutoController extends Controller {
 
@@ -49,15 +51,15 @@
          }
       }
       
-      public function cadastrar () {
+      public function cadastrar (ProdutosRequest $request) {
          Log::info("I accessed the function 'cadastrar' at ProdutoController");
 
          $produto = new Produto();
 
-         $produto->nome = Request::input('nome');
-         $produto->descricao = Request::input('descricao');
-         $produto->valor = Request::input('valor');
-         $produto->quantidade = Request::input('quantidade');
+         $produto->nome = $request->input('nome');
+         $produto->descricao = $request->input('descricao');
+         $produto->valor = $request->input('valor');
+         $produto->quantidade = $request->input('quantidade');
 
          // persistindo no banco de dados
          try {
