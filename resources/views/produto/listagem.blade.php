@@ -14,6 +14,11 @@
                   <i class="bi bi-search"></i>
                </a>
             </td>
+            <td>
+               <a href="{{ route('produtos.excluir', ['id' => $p->id]) }}">
+                  <span class="glyphicon glyphicon-trash"></span>
+               </a>
+            </td>
          </tr>
       @empty
          <div class="alert alert-danger">

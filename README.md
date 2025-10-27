@@ -1,61 +1,114 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📦 Sistema de Controle de Estoque
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web para gerenciamento de estoque de produtos desenvolvido com Laravel.
 
-## About Laravel
+## 🚀 Tecnologias
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Laravel 11.x** - Framework PHP
+- **MySQL** - Banco de dados
+- **Bootstrap 3.4.1** - Framework CSS (via CDN)
+- **Bootstrap Icons** - Ícones
+- **Blade** - Template engine
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📋 Pré-requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.2+
+- Composer
+- MySQL 5.7+ ou MariaDB
+- Servidor web (Apache/Nginx) ou `php artisan serve`
 
-## Learning Laravel
+## 🔧 Instalação
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/BrunoViola/controle-de-estoque.git
+   cd controle-de-estoque
+   ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. **Instale as dependências**
+   ```bash
+   composer install
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Configure o ambiente**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Laravel Sponsors
+4. **Configure o banco de dados no `.env`**
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=seu_banco
+   DB_USERNAME=seu_usuario
+   DB_PASSWORD=sua_senha
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5. **Execute as migrations**
+   ```bash
+   php artisan migrate
+   ```
 
-### Premium Partners
+6. **Inicie o servidor**
+   ```bash
+   php artisan serve
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+7. **Acesse a aplicação**
+   ```
+   http://localhost:8000
+   ```
 
-## Contributing
+## 📁 Estrutura do Projeto
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+app/
+├── Http/Controllers/
+│   └── ProdutoController.php    # Controlador de produtos
+├── Models/
+│   └── Produto.php               # Model do produto
+resources/
+├── views/
+│   ├── layout/
+│   │   └── principal.blade.php   # Layout principal
+│   └── produto/
+│       ├── listagem.blade.php    # Listagem de produtos
+│       ├── formulario.blade.php  # Formulário de cadastro
+│       └── detalhesProduto.blade.php  # Detalhes do produto
+routes/
+└── web.php                       # Rotas da aplicação
+```
 
-## Code of Conduct
+## 🛣️ Rotas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Método | URI | Nome | Ação |
+|--------|-----|------|------|
+| GET | `/` | home | Redireciona para `/produtos` |
+| GET | `/produtos` | produtos.index | Lista todos os produtos |
+| GET | `/produtos/novo` | produtos.create | Exibe formulário de cadastro |
+| POST | `/produtos/cadastrar` | produtos.store | Salva novo produto |
+| GET | `/produtos/mostra/{id}` | produtos.show | Exibe detalhes do produto |
 
-## Security Vulnerabilities
+## 💾 Banco de Dados
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Tabela: `produtos`
 
-## License
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| id | INT (PK) | ID do produto |
+| nome | VARCHAR(100) | Nome do produto |
+| descricao | TEXT | Descrição do produto |
+| valor | DECIMAL(10,2) | Preço do produto |
+| quantidade | INT | Quantidade em estoque |
+| created_at | TIMESTAMP | Data de criação |
+| updated_at | TIMESTAMP | Data de atualização |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 👨‍💻 Desenvolvedor
+
+**Bruno Henrique Silva Viola**
+
+## 📝 Licença
+
+Este projeto é open source e está disponível sob a [Licença MIT](https://opensource.org/licenses/MIT).
